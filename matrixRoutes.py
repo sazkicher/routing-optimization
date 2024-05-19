@@ -10,7 +10,6 @@ from routesStr import routesStr_main
 
 def calculate_distance(route_str):
     
-    # 
     server = "http://router.project-osrm.org/route/v1/driving/"
 
     coordexamp = "13.388860,52.517037;13.397634,52.529407;13.428555,52.523219"
@@ -32,8 +31,7 @@ def calculate_distance(route_str):
 
     except requests.exceptions.JSONDecodeError as e:
         print(e.args[0])        
-    
-    
+      
     #print(distances)
     return distances
 
@@ -44,7 +42,6 @@ def calculate_matrix(ncoords, matrixcoord):
     for route_str in matrixcoord:
         counta += 1
         print(f"{counta} of {ncoords}")
-        #print(route_str)
         distancex_i = [] 
         for route_substr in route_str:
             distancex = calculate_distance(route_substr)
@@ -52,7 +49,6 @@ def calculate_matrix(ncoords, matrixcoord):
         #print(f"Longitud de str routes{len(route_str[0])}") #Check
         #print(f"Acá se pasa el str de routes {route_str[0]}") #Check
         distance_matrix.append(distancex_i)
-    #print(f"Matriz distancias by max 100: {distance_matrix}")
 
     return distance_matrix
 
@@ -78,8 +74,6 @@ def json_maker(ncoords, distance_matrix,  vehicle_cap, adresses, max_distance):
     demands = list(itertools.repeat(1, ncoords))
     demands[0] = 0
     vehicle_capacities = list(itertools.repeat(int(vehicle_cap), ncoords))
-    #print(demands)
-    #print(vehicle_capacities)
     
     json_routes = json.dumps({
         'Addresses' : adresses,
@@ -125,6 +119,7 @@ def matrixRoutes_main ():
 
 
     ## CALCULATE DISTANCE MATRIX AGENTS
+
     # Strings to calculate distance
     ncoords, matrixcoord, adresses = routesStr_main(site_coord) #Given a set of coordinates return that matrix of nxn coordinates 
     #print(f"ncoords: {ncoords}")
@@ -141,7 +136,6 @@ def matrixRoutes_main ():
     # Insert
     distance_matrix = insert_site(distance_matrix)
 
-    #print(f"0 en la primera {distance_matrix}")
 
     #JSON maker
     json_routes =  json_maker(ncoords, distance_matrix, vehicle_cap, adresses, max_distance) #ccms, coords, 
