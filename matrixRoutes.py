@@ -1,3 +1,8 @@
+"""
+Requests matrixcoord to OSRM to get the distance_matrix and JSON maker.
+
+"""
+
 import itertools
 import json
 from datetime import datetime
@@ -46,8 +51,8 @@ def calculate_matrix(ncoords, matrixcoord):
         for route_substr in route_str:
             distancex = calculate_distance(route_substr)
             distancex_i.append(distancex)
-        #print(f"Longitud de str routes{len(route_str[0])}") #Check
-        #print(f"Acá se pasa el str de routes {route_str[0]}") #Check
+        #print(f"Len str routes{len(route_str[0])}") #Check
+        #print(f"str routes {route_str[0]}") #Check
         distance_matrix.append(distancex_i)
 
     return distance_matrix

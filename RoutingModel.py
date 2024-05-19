@@ -12,6 +12,7 @@ from matrixRoutes import matrixRoutes_main
 
 def create_data_model():
     """Stores the data for the problem."""
+    
     x = matrixRoutes_main()
     data = json.loads(x)
     #data = {}

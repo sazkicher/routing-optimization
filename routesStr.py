@@ -15,29 +15,29 @@ def createstr(site_coord):
     df[['lat', 'long']] = df['Coord'].str.split(',', expand=True)
     dbcoord = df['long'].astype(str) +","+df['lat'].astype(str)
 
-    # Inicialización var
+    # Inits vars
     strcoord = '' 
-    nstrcoord = [] # Cantidad de pares de coordenadas por elemento 
-    listcoord = [] # Lista de elementos nstrcoord
-    matrixcoord = [] # Matrix que contiene las listas de list coord
+    nstrcoord = [] # Number of coordinate pairs per element
+    listcoord = [] # List of nstrcoord elements
+    matrixcoord = [] # Matrix containing lists of list coord
 
     coords = dbcoord.values.tolist()
     coords.insert(0,site_coord)   
     counta = 0
 
-    # Cordenada fija para iterar
+    # Fixed coordinate to iterate
     ncoord = len(coords)
     print(f"Number of coordinates: {ncoord}")
     
     for coordy in range(len(coords)): # for columns 
         coordfix =  coords[coordy] 
-        #print(f"columna: {coordy}")
-        #print(f"Coordenada fija out: {coordfix}")
+        #print(f"column: {coordy}")
+        #print(f"Fixed coord out: {coordfix}")
         counta = 0
         listcoord = [] 
         strcoord = ''    
         for coordx in coords:
-            #print(f"Coordenada fija in: {coordfix}") # Check
+            #print(f"Fixed coord in: {coordfix}") # Check
             twoaddresses = coordfix + ";" + coordx +";" # example: 13.388860,52.517037;13.397634,52.529407;
             #print(f"twoaddresses: {twoaddresses}") #Check 
             counta += 1
@@ -49,18 +49,17 @@ def createstr(site_coord):
                 strcoord = ''
             else:
                 strcoord += twoaddresses
-        #print(f"Packs a enviar: {len(listcoord)}")
         matrixcoord.append(listcoord)
-    #print(f"pares de coordenadas por elemento: {nstrcoord}")
-    #print(f"Packs a enviar: {len(listcoord)}")
-    #print(f"Columns a enviar: {len(matrixcoord)}")
+    #print(f"coordinate pairs per element: {nstrcoord}")
+    #print(f"Packs to send: {len(listcoord)}")
+    #print(f"Columnsto send: {len(matrixcoord)}")
     return  ncoord, matrixcoord 
 
 def export_matrixcoord(matrixcoord):
     with open('bu_matrixcoord.txt', 'w') as f:
         f.write(str(matrixcoord))    
 
-def createAddress(site_coord): # pendinete arreglar
+def createAddress(site_coord): 
     df = pd.read_excel("subbase.xlsx", dtype = str)
 
     #  Get lat long
@@ -81,8 +80,8 @@ def createAddress(site_coord): # pendinete arreglar
 
     return adresses
 
-def routesStr_main(site_coord): #site_coord
-    #site_coord = '-74.119482000000000,4.684755000000000'
+def routesStr_main(site_coord): 
+    #site_coord = '-74.119482000000000,4.684755000000000' 
 
     ncoord , matrixcoord = createstr(site_coord) #, matrixcoord  
     adresses = createAddress(site_coord)
