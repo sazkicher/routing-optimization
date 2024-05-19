@@ -146,10 +146,10 @@ def matrixRoutes_main ():
     json_routes =  json_maker(ncoords, distance_matrix, vehicle_cap, adresses, max_distance) #ccms, coords, 
     
     # Save distance_matrix
-    with open('bu_distance_matrix.txt', 'w') as f:
+    with open('BU/bu_distance_matrix.txt', 'w') as f:
         f.write(str(distance_matrix))
      # Save JSON maker
-    with open('bu_json_routes.txt', 'w') as f:
+    with open('BU/bu_json_routes.txt', 'w') as f:
         f.write(str(json_routes))
 
     return json_routes
